@@ -1,1 +1,3 @@
-# STATS220
+# STATS220 REPO
+
+## Hey! I'm Belle 
