@@ -8,4 +8,4 @@ Hey! I hope you are having an amazing day 🌤️
 _Thank you for reading 😸_
 ## More about me ✨
 1. Discord -> [pellebiu](https://discord.com/channels/@me) 🎐
-2. You can check out my [LinkedIn profile](www.linkedin.com/in/belleyom)!
+2. You can check out my [LinkedIn profile](https://www.linkedin.com/in/belleyom)!
