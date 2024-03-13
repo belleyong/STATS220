@@ -16,8 +16,11 @@ h1{
   font-weight: bold;
 }
 h2 {
-  color: #B5D0E0;
-  padding: 5px;
+  color: #000000;
+  padding: 15px;
+  text-align: center;
+  background-color: #B5D0E0;
+  border-radius: 25px;
 }
 h3{
   color: #B8B4BE;
@@ -214,7 +217,7 @@ animated_gif <- combined_meme %>%
 image_write(animated_gif, "my_animation.gif")
 ```
 
-![](my_animation.gif)
+![](my_animation.gif)`
 
 ## Creativity
 I've changed the appearance of my HTML by using CSS. I've changed all the colors of the headers and made the background color of my HTML black. I've also incorporated italics and bolding to my headings. I've used padding to all my h2 headings so my HTML would look neater. I've also changed the font and font size of many headings and text.
