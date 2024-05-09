@@ -1,0 +1,122 @@
+---
+title: "Project 2"
+subtitle: "*STATS 220 Semester One 2024*"
+author: "Belle Yong"
+output:
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+
+knitr::opts_chunk$set(echo=TRUE, message=FALSE, warning=FALSE, error=FALSE)
+```
+
+```{css echo=FALSE}
+h1 {
+  font-weight: bold;
+}
+h2 {
+  color: #000000;
+  padding: 15px;
+  text-align: center;
+  background-color: #8DC7FB;
+  border-radius: 25px;
+}
+h3 {
+  color: #DCEEFF;
+}
+body {
+  font-size: 12pt;
+  font-family: Overpass;
+  background-color: #2E2E2E;
+  color: #FFFFFF;
+}
+img {
+  max_width: 100%;
+}
+
+```
+
+## Introduction
+As social media has now become an inseparable part of our daily life, I've decided to focus on how social media has influence individuals' emotional well-being, time management and way of communications. 
+
+When I was designing my form, I ensure that all my questions were clear and specified what type of data I needed from respondents. This had helped me avoid any confusion and misinterpretation when individuals are filling in the form. To maintain my data’s accuracy I have set some validation rules for certain responses. For example, I’ve set parameters to reject any age response under 5 and hours spent on social media below 0, making sure only valid data was collected. Other than clarity and ensure data accuracy, I have also ensure all questions are building onto the human behaviour I’m focusing on. 
+
+The question in my form that helps the analysis of changes in social media usage behaviour over different weeks is the question about the number of hours spent on social media each week. By tracking this every week, I can observe the trends in social media usage over time. For example if there is an increase or decrease in time spent on social media. This would allow me to identify how the social media habits had affect individuals life. 
+
+#### This is the [link](https://forms.gle/EmFDf14pqfN6nUg9A) to my Social Media Usage survey!
+
+## Analytics 
+
+#### This is the R code that shows the data I've received from my survey and with the variables renamed. 
+```{r}
+learning_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQqfYLoyc7Y3hqTaeWIJ4_9Xyzstg3HQSHYV0Wwhol_SJ87G-phfDV0LyD2K2gafpxQ0G2AWCLWtVOL/pub?output=csv") %>% 
+  rename(age = 2,
+         social_media_app = 3,
+         social_media_usage = 4,
+         social_media_check_frequency = 5,
+         addiction_to_social_media = 6,
+         social_media_purposes = 7,
+         social_media_effect = 8)
+```
+### How many responses the social media survey had received?
+```{r}
+# Communicate the total amount of responses received
+paste("The total amount of individuals that completed my social media usage survey is", length(learning_data$age))
+```
+### What is the average age of the participants in this survey?
+```{r}
+# calculate the mean age and round it to 1d.p.
+average_age <- mean(learning_data$age) %>% round(1) 
+# Communicate the average age of all the individuals that did my survey
+paste("The average age of participants that took my social media usage survey is", average_age)
+```
+### Social Media Usage Duration
+```{r}
+paste("The longest duration an individual uses social media is", max(learning_data$social_media_usage), "hours and the shortest duration an individual uses social media is", min(learning_data$social_media_usage),"hours.")
+```
+
+### What does Individual use social media for?
+```{r}
+# Getting all the variables and separate them into individual variables using comma and space
+learning_data_longer <- learning_data %>%
+  separate_rows(social_media_purposes, sep=", ")
+
+learning_data_longer %>%
+  ggplot() + 
+  geom_bar(aes(y = social_media_purposes), fill = "#9EA1D4") + # Set it as y axis so it will be a horizontal bar graph 
+  labs(title = "What are the purposes for using social media?", # Create a title for my plot to make the graph clearer 
+       y = "Social Media Purposes", # Rename y-axis
+       x = "Number of Individuals") # Rename x-axis 
+```
+
+### Effects of social media on individuals wellbeing
+```{r}
+learning_data %>%
+  ggplot() + 
+  geom_bar(aes(x = social_media_check_frequency, fill = social_media_effect)) + 
+  # adding more information to the bar chart so it shows the relationship of the plot clearly 
+  labs(title = "Does Social Media usage affects Individuals' wellbeing?", # Stating the purpose of the plot 
+       subtitle = "Comparing the frequency of using social media and it's effect on individuals",
+       x = "Usage Frequency", # name x-axis as Usage Frequency 
+       y = "Number of Individuals") # name y-axis as the amount of individuals that has answered the form to have either negative, positive or no effect after using social media
+```
+
+### What I've learned about My Social Media Usage Data !
+From my survey data, there are total of 25 people who completed my google form. Among these participants, the duration of social media usage varied significantly from 2 hours to 103 hours, which has a significant difference of 101 hours. As the average age of participants that took my survey has the age of 19.6, it is indicating that majority fall within the 19-20 age range. 
+
+By analysing the bar graph about "Does Social Media usage affects Individuals' wellbeing?" created through my survey data, it is proven that using social media frequently throughout the week tends to have more negative impact on individuals' well-being. Whereas for individuals who use social media once or several times a week, it appears to have no significant effect on their wellbeing. The results show a relationship between the frequency of social media usage and its recognized impact on individuals' overall well-being. 
+
+Furthermore, by looking at the bar graph about "What are the purposes for using social media?", majority of the individuals approximately 22 individuals uses social media for entertainment and approximately 21 individuals contacting friends and family. This highlights that social media is now an important part of our lives as it is now a way of making social connection between individuals and it is an easily accessible. 
+
+## Creativity 
+I have made my survey form more interesting by adding a header and also changing the color of the google form. I have also made the settings of my google form to have validation rules when individuals are entering their responses. I've also designed my html file by using css. I've made my title bold and also change the color of different headers. I've also changed the font size to 12 and the font family to Overpass. Other than that, I've ensure all picture in my html file will not be greater than 100% so it wont change the page size. 
+
+## Learning Reflection 
+One important idea I’ve learnt from Module 2 Creating web-based dynamic reporting systems is interacting with the tidyverse package in R. I enjoy turning spreadsheet data into graphs in R using `ggplot()` to make the data more easily understandable and also more interesting by visually looking at the data. Other than that, `paste()` and `cat()` are really interesting as well. I’m able to combine different types of data like string and integer and combine them together and generate it as a text/string. 
+
+I would be very interested to expand my knowledge and skills in making data visualisation. I am curious to explore making data visualisation that moves as in being able to see the graph increase in data visually like the bar in bar graph increasing or dots in dot plot increasing. 
+
+An example of this could be the combination of the packages: `tiderverse` and also `magick` to create an animated plot of collected data. A good use of this would be for extensive research(this project only obtained data through one week) and it would be good to combine the skills of magick library and also tidyverse to create a portfolio project that goes accross the semester based on several weeks of data collection to display data. 
