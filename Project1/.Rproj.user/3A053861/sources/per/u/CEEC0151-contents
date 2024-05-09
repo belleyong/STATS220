@@ -1,0 +1,11 @@
+library(tidyverse)
+library(jsonlite)
+
+json <- "https://stat.auckland.ac.nz/~fergusson/stats220_S124/data/lab3b_json40.json"
+
+song_data <- fromJSON(json)
+
+long_songs <- song_data %>% mutate(track_name_num_words = str_count(track_name, "\\S+"))
+
+long_songs$track_name_num_words > 3
+
